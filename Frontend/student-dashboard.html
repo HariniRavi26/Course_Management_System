@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 id="welcomeMsg">Welcome back!</h1>
+      <p>Here's what's happening with your learning</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="num" id="statEnrolled">0</div><div class="label">Enrolled Courses</div></div>
+      <div class="stat-card"><div class="num" id="statCompleted">0</div><div class="label">Completed Courses</div></div>
+      <div class="stat-card"><div class="num" id="statInProgress">0</div><div class="label">In Progress</div></div>
+      <div class="stat-card"><div class="num" id="statCertificates">0</div><div class="label">Certificates Earned</div></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 style="font-size:20px;">Continue Learning</h2>
+      <a href="browse-courses.html" class="btn btn-secondary btn-sm">Browse More Courses</a>
+    </div>
+    <div class="grid grid-3" id="courseList"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const user = requireAuth();
+    if(user.role === 'admin'){ window.location.href = 'admin-dashboard.html'; }
+    renderNavbar('dashboard');
+    document.getElementById('welcomeMsg').textContent = `Welcome back, ${user.name}!`;
+
+    const myCourses = getMyCourses(user.id);
+    const percents = myCourses.map(c => getProgressPercent(user.id, c.id));
+
+    document.getElementById('statEnrolled').textContent = myCourses.length;
+    document.getElementById('statCompleted').textContent = percents.filter(p => p === 100).length;
+    document.getElementById('statInProgress').textContent = percents.filter(p => p > 0 && p < 100).length;
+    document.getElementById('statCertificates').textContent = percents.filter(p => p === 100).length;
+
+    document.getElementById('courseList').innerHTML = myCourses.map(c => {
+      const pct = getProgressPercent(user.id, c.id);
+      return `
+      <div class="card">
+        <div class="card-thumb">${c.title.charAt(0)}</div>
+        <div class="card-body">
+          <span class="tag">${c.category}</span>
+          <h3 style="margin:10px 0 6px;">${c.title}</h3>
+          <div class="progress-bar" style="margin:10px 0 4px;"><div style="width:${pct}%;"></div></div>
+          <p style="color:var(--muted);font-size:13px;">${pct}% complete</p>
+          <a href="course-content.html?id=${c.id}" class="btn btn-primary btn-sm" style="margin-top:10px;display:inline-block;">${pct>0?'Continue':'Start'}</a>
+        </div>
+      </div>`;
+    }).join('') || `<p style="color:var(--muted);">You haven't enrolled in any courses yet. <a href="browse-courses.html">Browse courses</a></p>`;
+  </script>
+</body>
+</html>

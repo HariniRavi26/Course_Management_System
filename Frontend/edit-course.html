@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Course - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="container" style="max-width:750px;">
+    <div class="page-header">
+      <h1>Edit Course</h1>
+      <p>Update the course details below</p>
+    </div>
+
+    <div id="alertBox"></div>
+
+    <form id="courseForm" style="background:var(--card);padding:26px;border-radius:var(--radius);border:1px solid var(--border);">
+      <div class="form-group">
+        <label>Course Title</label>
+        <input type="text" id="title" required>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" id="category" required>
+      </div>
+      <div class="form-group">
+        <label>Instructor Name</label>
+        <input type="text" id="instructor" required>
+      </div>
+      <div class="form-group">
+        <label>Price (USD)</label>
+        <input type="number" id="price" required min="0">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="description" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Course Modules</label>
+        <div id="modulesWrap"></div>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="addModuleRow()">+ Add Module</button>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <button type="submit" class="btn btn-primary" style="flex:1;">Save Changes</button>
+        <button type="button" class="btn btn-danger" onclick="removeThisCourse()">Delete Course</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    requireAdmin();
+    renderNavbar('manage');
+
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get('id');
+    const course = getCourseById(courseId);
+
+    if(!course){
+      document.querySelector('.container').innerHTML = '<p>Course not found.</p>';
+      throw new Error('Course not found');
+    }
+
+    document.getElementById('title').value = course.title;
+    document.getElementById('category').value = course.category;
+    document.getElementById('instructor').value = course.instructor;
+    document.getElementById('price').value = course.price;
+    document.getElementById('description').value = course.description;
+
+    function addModuleRow(title=''){
+      const wrap = document.getElementById('modulesWrap');
+      const row = document.createElement('div');
+      row.style = 'display:flex;gap:8px;margin-bottom:8px;';
+      row.innerHTML = `
+        <input type="text" class="module-title" placeholder="Module title" value="${title}">
+        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">✕</button>
+      `;
+      wrap.appendChild(row);
+    }
+    course.modules.forEach(m => addModuleRow(m.title));
+
+    document.getElementById('courseForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const titles = Array.from(document.querySelectorAll('.module-title'))
+        .map(i => i.value.trim()).filter(Boolean);
+
+      const modules = titles.map((t, i) => {
+        const existing = course.modules[i];
+        return existing ? { ...existing, title: t } : { id:'m'+(i+1), title:t, videoTitle:t+' - Video Lecture', materials:[t.replace(/\s+/g,'-')+'-notes.pdf'] };
+      });
+
+      updateCourse(courseId, {
+        title: document.getElementById('title').value.trim(),
+        category: document.getElementById('category').value.trim(),
+        instructor: document.getElementById('instructor').value.trim(),
+        price: Number(document.getElementById('price').value),
+        description: document.getElementById('description').value.trim(),
+        modules
+      });
+
+      document.getElementById('alertBox').innerHTML = `<div class="alert alert-success">Course updated successfully! Redirecting...</div>`;
+      setTimeout(() => window.location.href = 'courses.html', 1000);
+    });
+
+    function removeThisCourse(){
+      if(confirm('Delete this course permanently?')){
+        deleteCourse(courseId);
+        window.location.href = 'courses.html';
+      }
+    }
+  </script>
+</body>
+</html>

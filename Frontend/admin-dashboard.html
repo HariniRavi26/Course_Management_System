@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 id="welcomeMsg">Welcome back!</h1>
+      <p>Here's an overview of your course portal</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="num" id="statCourses">0</div><div class="label">Total Courses</div></div>
+      <div class="stat-card"><div class="num" id="statStudents">0</div><div class="label">Registered Students</div></div>
+      <div class="stat-card"><div class="num" id="statEnrollments">0</div><div class="label">Total Enrollments</div></div>
+      <div class="stat-card"><div class="num" id="statCompletions">0</div><div class="label">Course Completions</div></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 style="font-size:20px;">Your Courses</h2>
+      <a href="add-course.html" class="btn btn-primary">+ Add New Course</a>
+    </div>
+    <div class="grid grid-3" id="courseList"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const user = requireAdmin();
+    renderNavbar('dashboard');
+    document.getElementById('welcomeMsg').textContent = `Welcome back, ${user.name}!`;
+
+    const courses = getCourses();
+    const users = getData(DB.users);
+    const enrollments = getData(DB.enrollments);
+    const progress = getData(DB.progress);
+
+    document.getElementById('statCourses').textContent = courses.length;
+    document.getElementById('statStudents').textContent = users.filter(u => u.role === 'student').length;
+    document.getElementById('statEnrollments').textContent = enrollments.length;
+    document.getElementById('statCompletions').textContent = progress.filter(p => {
+      const c = getCourseById(p.courseId);
+      return c && p.completedModules.length === c.modules.length;
+    }).length;
+
+    document.getElementById('courseList').innerHTML = courses.map(c => `
+      <div class="card">
+        <div class="card-thumb">${c.title.charAt(0)}</div>
+        <div class="card-body">
+          <span class="tag">${c.category}</span>
+          <h3 style="margin:10px 0 6px;">${c.title}</h3>
+          <p style="color:var(--muted);font-size:13px;">${c.modules.length} modules · $${c.price}</p>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <a href="course-details.html?id=${c.id}" class="btn btn-secondary btn-sm">View</a>
+            <a href="edit-course.html?id=${c.id}" class="btn btn-primary btn-sm">Edit</a>
+          </div>
+        </div>
+      </div>
+    `).join('') || '<p style="color:var(--muted);">No courses yet. Add your first course!</p>';
+  </script>
+</body>
+</html>

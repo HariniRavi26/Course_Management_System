@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Courses - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>My Courses</h1>
+      <p>Continue where you left off</p>
+    </div>
+
+    <div class="grid grid-3" id="courseList"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    const user = requireAuth();
+    renderNavbar('mycourses');
+
+    const myCourses = getMyCourses(user.id);
+    const list = document.getElementById('courseList');
+
+    list.innerHTML = myCourses.map(c => {
+      const pct = getProgressPercent(user.id, c.id);
+      return `
+      <div class="card">
+        <div class="card-thumb">${c.title.charAt(0)}</div>
+        <div class="card-body">
+          <span class="tag">${c.category}</span>
+          <h3 style="margin:10px 0 6px;">${c.title}</h3>
+          <div class="progress-bar" style="margin:10px 0 4px;"><div style="width:${pct}%;"></div></div>
+          <p style="color:var(--muted);font-size:13px;">${pct}% complete</p>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <a href="course-content.html?id=${c.id}" class="btn btn-primary btn-sm">${pct > 0 ? 'Continue' : 'Start Learning'}</a>
+            ${pct === 100 ? `<a href="certificate.html?id=${c.id}" class="btn btn-secondary btn-sm">Certificate</a>` : ''}
+          </div>
+        </div>
+      </div>`;
+    }).join('') || `<p style="color:var(--muted);">You haven't enrolled in any courses yet. <a href="browse-courses.html">Browse courses</a></p>`;
+  </script>
+</body>
+</html>

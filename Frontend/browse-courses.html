@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Browse Courses - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Browse Courses</h1>
+      <p>Discover courses to boost your skills</p>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+      <input type="text" id="searchInput" placeholder="Search courses..." style="flex:2;min-width:200px;">
+      <select id="categoryFilter" style="flex:1;min-width:160px;">
+        <option value="">All Categories</option>
+      </select>
+    </div>
+
+    <div class="grid grid-3" id="courseList"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    renderNavbar('browse');
+    const user = getCurrentUser();
+    const allCourses = getCourses();
+
+    const cats = [...new Set(allCourses.map(c => c.category))];
+    document.getElementById('categoryFilter').innerHTML += cats.map(c => `<option value="${c}">${c}</option>`).join('');
+
+    function render(){
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const cat = document.getElementById('categoryFilter').value;
+      const filtered = allCourses.filter(c =>
+        c.title.toLowerCase().includes(q) && (!cat || c.category === cat)
+      );
+      const list = document.getElementById('courseList');
+      list.innerHTML = filtered.map(c => {
+        const enrolled = user && isEnrolled(user.id, c.id);
+        return `
+        <div class="card">
+          <div class="card-thumb">${c.title.charAt(0)}</div>
+          <div class="card-body">
+            <span class="tag">${c.category}</span>
+            <h3 style="margin:10px 0 6px;">${c.title}</h3>
+            <p style="color:var(--muted);font-size:14px;">By ${c.instructor} · ${c.modules.length} modules</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+              <span class="price">$${c.price}</span>
+              <a href="course-details.html?id=${c.id}" class="btn btn-primary btn-sm">${enrolled ? 'Continue' : 'View Course'}</a>
+            </div>
+          </div>
+        </div>`;
+      }).join('') || '<p style="color:var(--muted);">No courses match your search.</p>';
+    }
+    document.getElementById('searchInput').addEventListener('input', render);
+    document.getElementById('categoryFilter').addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>
