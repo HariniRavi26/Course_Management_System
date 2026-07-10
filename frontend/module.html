@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Module - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="student-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="my-courses.html" class="active">My Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 John Student</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <a href="course-content.html" style="color:var(--primary);font-size:14px;">← Back to Web Development Bootcamp</a>
+      <h1 style="margin-top:8px;">Module 3: JavaScript Essentials</h1>
+    </div>
+
+    <div class="learn-layout">
+      <div class="sidebar">
+        <h3>Modules</h3>
+        <div class="module-item"><span>✅ 1. Introduction to HTML</span></div>
+        <div class="module-item"><span>✅ 2. CSS Fundamentals</span></div>
+        <div class="module-item active"><span>📘 3. JavaScript Essentials</span></div>
+      </div>
+      <div>
+        <div class="card"><div class="card-body">
+          <h3 style="margin-bottom:12px;">📹 Video Lecture</h3>
+          <a href="video-player.html" class="video-wrap" style="text-decoration:none;">
+            <div>▶ Play: JS for Beginners</div>
+          </a>
+        </div></div>
+
+        <div class="card" style="margin-top:16px;"><div class="card-body">
+          <h3 style="margin-bottom:12px;">📎 Study Materials</h3>
+          <a href="materials.html" class="btn btn-secondary btn-sm">View Materials (1)</a>
+        </div></div>
+
+        <div style="margin-top:20px;display:flex;gap:10px;">
+          <a href="progress.html" class="btn btn-success">Mark as Complete</a>
+          <a href="progress.html" class="btn btn-primary">View Progress →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

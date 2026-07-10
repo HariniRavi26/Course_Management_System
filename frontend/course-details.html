@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Course Details - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="student-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html" class="active">Browse Courses</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 John Student</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:40px;border-radius:var(--radius);margin-bottom:24px;">
+      <span class="tag" style="background:rgba(255,255,255,.2);color:#fff;">Development</span>
+      <h1 style="margin:12px 0 8px;">Web Development Bootcamp</h1>
+      <p style="opacity:.9;">By Jane Smith · 3 modules</p>
+    </div>
+
+    <div class="learn-layout">
+      <div>
+        <div class="card"><div class="card-body">
+          <h3 style="margin-bottom:10px;">About this course</h3>
+          <p style="color:var(--muted);">Learn HTML, CSS, JavaScript and build real projects from scratch. By the end of this course you'll be able to design, build and deploy full websites on your own.</p>
+        </div></div>
+        <div class="card" style="margin-top:16px;"><div class="card-body">
+          <h3 style="margin-bottom:10px;">Course Curriculum</h3>
+          <ul>
+            <li class="module-item"><span>📘 Module 1: Introduction to HTML</span></li>
+            <li class="module-item"><span>📘 Module 2: CSS Fundamentals</span></li>
+            <li class="module-item"><span>📘 Module 3: JavaScript Essentials</span></li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="sidebar">
+        <div style="font-size:28px;font-weight:700;color:var(--primary);margin-bottom:14px;">$49</div>
+        <a href="enrollment-success.html" class="btn btn-primary btn-block">Enroll Now - $49</a>
+        <div class="help-text" style="margin-top:14px;">✔ Lifetime access<br>✔ Certificate on completion<br>✔ Downloadable materials</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Browse Courses - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="student-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html" class="active">Browse Courses</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 John Student</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Browse Courses</h1>
+      <p>Discover courses to boost your skills</p>
+    </div>
+
+    <form style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+      <input type="text" placeholder="Search courses..." style="flex:2;min-width:200px;">
+      <select style="flex:1;min-width:160px;">
+        <option value="">All Categories</option>
+        <option>Development</option>
+        <option>Data Science</option>
+        <option>Design</option>
+      </select>
+    </form>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-thumb">W</div>
+        <div class="card-body">
+          <span class="tag">Development</span>
+          <h3 style="margin:10px 0 6px;">Web Development Bootcamp</h3>
+          <p style="color:var(--muted);font-size:14px;">By Jane Smith · 3 modules</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+            <span class="price">$49</span>
+            <a href="course-details.html" class="btn btn-primary btn-sm">View Course</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">P</div>
+        <div class="card-body">
+          <span class="tag">Data Science</span>
+          <h3 style="margin:10px 0 6px;">Python for Data Science</h3>
+          <p style="color:var(--muted);font-size:14px;">By Mark Lee · 2 modules</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+            <span class="price">$59</span>
+            <a href="course-details.html" class="btn btn-primary btn-sm">View Course</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">U</div>
+        <div class="card-body">
+          <span class="tag">Design</span>
+          <h3 style="margin:10px 0 6px;">UI/UX Design Fundamentals</h3>
+          <p style="color:var(--muted);font-size:14px;">By Amy Wong · 2 modules</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+            <span class="price">$39</span>
+            <a href="course-details.html" class="btn btn-primary btn-sm">View Course</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

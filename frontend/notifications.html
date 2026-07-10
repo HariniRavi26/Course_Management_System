@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notifications - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="student-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="notifications.html" class="active">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 John Student</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width:700px;">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h1>Notifications</h1>
+        <p>Stay updated on your courses and account</p>
+      </div>
+      <a href="notifications.html" class="btn btn-secondary btn-sm">Mark all as read</a>
+    </div>
+
+    <div style="border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);">
+      <div class="notif-item unread">
+        <div class="notif-icon">🔔</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;">
+            <b>Course Completed!</b>
+            <span class="help-text">2h ago</span>
+          </div>
+          <p style="color:var(--muted);font-size:14px;margin-top:4px;">Congratulations! You completed "Python for Data Science". Your certificate is ready.</p>
+        </div>
+      </div>
+      <div class="notif-item unread">
+        <div class="notif-icon">🔔</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;">
+            <b>Enrollment Successful</b>
+            <span class="help-text">1d ago</span>
+          </div>
+          <p style="color:var(--muted);font-size:14px;margin-top:4px;">You have successfully enrolled in "Web Development Bootcamp".</p>
+        </div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-icon">🔔</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;">
+            <b>Welcome to the LMS Portal!</b>
+            <span class="help-text">3d ago</span>
+          </div>
+          <p style="color:var(--muted);font-size:14px;margin-top:4px;">Start exploring courses and begin learning today.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="student-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="student-dashboard.html" class="active">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="my-courses.html">My Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 John Student</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Welcome back, John!</h1>
+      <p>Here's what's happening with your learning</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="num">3</div><div class="label">Enrolled Courses</div></div>
+      <div class="stat-card"><div class="num">1</div><div class="label">Completed Courses</div></div>
+      <div class="stat-card"><div class="num">1</div><div class="label">In Progress</div></div>
+      <div class="stat-card"><div class="num">1</div><div class="label">Certificates Earned</div></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 style="font-size:20px;">Continue Learning</h2>
+      <a href="browse-courses.html" class="btn btn-secondary btn-sm">Browse More Courses</a>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-thumb">W</div>
+        <div class="card-body">
+          <span class="tag">Development</span>
+          <h3 style="margin:10px 0 6px;">Web Development Bootcamp</h3>
+          <div class="progress-bar" style="margin:10px 0 4px;"><div style="width:66%;"></div></div>
+          <p style="color:var(--muted);font-size:13px;">66% complete</p>
+          <a href="course-content.html" class="btn btn-primary btn-sm" style="margin-top:10px;display:inline-block;">Continue</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">P</div>
+        <div class="card-body">
+          <span class="tag">Data Science</span>
+          <h3 style="margin:10px 0 6px;">Python for Data Science</h3>
+          <div class="progress-bar" style="margin:10px 0 4px;"><div style="width:100%;"></div></div>
+          <p style="color:var(--muted);font-size:13px;">100% complete</p>
+          <a href="course-content.html" class="btn btn-primary btn-sm" style="margin-top:10px;display:inline-block;">Review</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">U</div>
+        <div class="card-body">
+          <span class="tag">Design</span>
+          <h3 style="margin:10px 0 6px;">UI/UX Design Fundamentals</h3>
+          <div class="progress-bar" style="margin:10px 0 4px;"><div style="width:0%;"></div></div>
+          <p style="color:var(--muted);font-size:13px;">0% complete</p>
+          <a href="course-content.html" class="btn btn-primary btn-sm" style="margin-top:10px;display:inline-block;">Start</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

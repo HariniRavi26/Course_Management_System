@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Course Content - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="student-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="student-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="my-courses.html" class="active">My Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 John Student</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Web Development Bootcamp</h1>
+      <p>By Jane Smith · 3 modules</p>
+      <div class="progress-bar" style="max-width:400px;margin-top:10px;"><div style="width:66%;"></div></div>
+      <p class="help-text">66% complete</p>
+    </div>
+
+    <div class="learn-layout">
+      <div class="sidebar">
+        <h3>Course Modules</h3>
+        <div class="module-item"><span>✅ 1. Introduction to HTML</span></div>
+        <div class="module-item"><span>✅ 2. CSS Fundamentals</span></div>
+        <div class="module-item"><span>📘 3. JavaScript Essentials</span></div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-body" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div>
+              <h3>Module 1: Introduction to HTML</h3>
+              <p style="color:var(--muted);font-size:13px;">Completed</p>
+            </div>
+            <a href="module.html" class="btn btn-primary btn-sm">Review</a>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-body" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div>
+              <h3>Module 2: CSS Fundamentals</h3>
+              <p style="color:var(--muted);font-size:13px;">Completed</p>
+            </div>
+            <a href="module.html" class="btn btn-primary btn-sm">Review</a>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:14px;">
+          <div class="card-body" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+            <div>
+              <h3>Module 3: JavaScript Essentials</h3>
+              <p style="color:var(--muted);font-size:13px;">Not started</p>
+            </div>
+            <a href="module.html" class="btn btn-primary btn-sm">Start Module</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

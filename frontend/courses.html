@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Manage Courses - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="admin-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="admin-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="courses.html" class="active">Manage Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 Admin User</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h1>Manage Courses</h1>
+        <p>Add, edit, or remove courses from your portal</p>
+      </div>
+      <a href="add-course.html" class="btn btn-primary">+ Add New Course</a>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Title</th><th>Category</th><th>Instructor</th><th>Price</th><th>Modules</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Web Development Bootcamp</b></td>
+          <td>Development</td>
+          <td>Jane Smith</td>
+          <td>$49</td>
+          <td>3</td>
+          <td>
+            <a href="course-details.html" class="btn btn-secondary btn-sm">View</a>
+            <a href="edit-course.html" class="btn btn-primary btn-sm">Edit</a>
+            <a href="courses.html" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Python for Data Science</b></td>
+          <td>Data Science</td>
+          <td>Mark Lee</td>
+          <td>$59</td>
+          <td>2</td>
+          <td>
+            <a href="course-details.html" class="btn btn-secondary btn-sm">View</a>
+            <a href="edit-course.html" class="btn btn-primary btn-sm">Edit</a>
+            <a href="courses.html" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+        <tr>
+          <td><b>UI/UX Design Fundamentals</b></td>
+          <td>Design</td>
+          <td>Amy Wong</td>
+          <td>$39</td>
+          <td>2</td>
+          <td>
+            <a href="course-details.html" class="btn btn-secondary btn-sm">View</a>
+            <a href="edit-course.html" class="btn btn-primary btn-sm">Edit</a>
+            <a href="courses.html" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="admin-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="admin-dashboard.html" class="active">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="courses.html">Manage Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 Admin User</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Welcome back, Admin!</h1>
+      <p>Here's an overview of your course portal</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="num">3</div><div class="label">Total Courses</div></div>
+      <div class="stat-card"><div class="num">128</div><div class="label">Registered Students</div></div>
+      <div class="stat-card"><div class="num">245</div><div class="label">Total Enrollments</div></div>
+      <div class="stat-card"><div class="num">67</div><div class="label">Course Completions</div></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 style="font-size:20px;">Your Courses</h2>
+      <a href="add-course.html" class="btn btn-primary">+ Add New Course</a>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-thumb">W</div>
+        <div class="card-body">
+          <span class="tag">Development</span>
+          <h3 style="margin:10px 0 6px;">Web Development Bootcamp</h3>
+          <p style="color:var(--muted);font-size:13px;">3 modules · $49</p>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <a href="course-details.html" class="btn btn-secondary btn-sm">View</a>
+            <a href="edit-course.html" class="btn btn-primary btn-sm">Edit</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">P</div>
+        <div class="card-body">
+          <span class="tag">Data Science</span>
+          <h3 style="margin:10px 0 6px;">Python for Data Science</h3>
+          <p style="color:var(--muted);font-size:13px;">2 modules · $59</p>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <a href="course-details.html" class="btn btn-secondary btn-sm">View</a>
+            <a href="edit-course.html" class="btn btn-primary btn-sm">Edit</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-thumb">U</div>
+        <div class="card-body">
+          <span class="tag">Design</span>
+          <h3 style="margin:10px 0 6px;">UI/UX Design Fundamentals</h3>
+          <p style="color:var(--muted);font-size:13px;">2 modules · $39</p>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <a href="course-details.html" class="btn btn-secondary btn-sm">View</a>
+            <a href="edit-course.html" class="btn btn-primary btn-sm">Edit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

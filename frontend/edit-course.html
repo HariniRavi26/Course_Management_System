@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Course - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="admin-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="admin-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="courses.html" class="active">Manage Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 Admin User</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width:750px;">
+    <div class="page-header">
+      <h1>Edit Course</h1>
+      <p>Update the course details below</p>
+    </div>
+
+    <form action="courses.html" method="get" style="background:var(--card);padding:26px;border-radius:var(--radius);border:1px solid var(--border);">
+      <div class="form-group">
+        <label>Course Title</label>
+        <input type="text" name="title" required value="Web Development Bootcamp">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" required value="Development">
+      </div>
+      <div class="form-group">
+        <label>Instructor Name</label>
+        <input type="text" name="instructor" required value="Jane Smith">
+      </div>
+      <div class="form-group">
+        <label>Price (USD)</label>
+        <input type="number" name="price" required min="0" value="49">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" required>Learn HTML, CSS, JavaScript and build real projects from scratch.</textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Course Modules</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input type="text" name="module1" value="Introduction to HTML">
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input type="text" name="module2" value="CSS Fundamentals">
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input type="text" name="module3" value="JavaScript Essentials">
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <button type="submit" class="btn btn-primary" style="flex:1;">Save Changes</button>
+        <a href="courses.html" class="btn btn-danger">Delete Course</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

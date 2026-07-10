@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Course - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand"><a href="admin-dashboard.html">📚 LMS Portal</a></div>
+    <div class="nav-links">
+      <a href="admin-dashboard.html">Dashboard</a>
+      <a href="browse-courses.html">Browse Courses</a>
+      <a href="courses.html" class="active">Manage Courses</a>
+      <a href="notifications.html">Notifications<span class="badge-count">2</span></a>
+      <div class="user-chip">
+        <span>👤 Admin User</span>
+        <a href="login.html" style="color:var(--danger);font-weight:600;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width:750px;">
+    <div class="page-header">
+      <h1>Add New Course</h1>
+      <p>Fill in the details below to publish a new course</p>
+    </div>
+
+    <form action="courses.html" method="get" style="background:var(--card);padding:26px;border-radius:var(--radius);border:1px solid var(--border);">
+      <div class="form-group">
+        <label>Course Title</label>
+        <input type="text" name="title" required placeholder="e.g. Complete JavaScript Course">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" required placeholder="e.g. Development, Design, Marketing">
+      </div>
+      <div class="form-group">
+        <label>Instructor Name</label>
+        <input type="text" name="instructor" required placeholder="e.g. Jane Smith">
+      </div>
+      <div class="form-group">
+        <label>Price (USD)</label>
+        <input type="number" name="price" required min="0" placeholder="e.g. 49">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" required placeholder="What will students learn in this course?"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Course Modules</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input type="text" name="module1" placeholder="Module 1 title" value="Introduction">
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input type="text" name="module2" placeholder="Module 2 title" value="Getting Started">
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <input type="text" name="module3" placeholder="Module 3 title (optional)">
+        </div>
+        <p class="help-text">Add extra module rows as needed — duplicate the input line above.</p>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Publish Course</button>
+    </form>
+  </div>
+</body>
+</html>
