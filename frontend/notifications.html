@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notifications - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="notif" data-auth="student">
+  <nav class="navbar" id="navbar"></nav>
+  <div class="container" style="max-width:700px;">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h1>Notifications</h1>
+        <p>Stay updated on your courses and account</p>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="markAllBtn">Mark all as read</button>
+    </div>
+    <div id="notifList" style="border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>
+    const user = getCurrentUser();
+
+    function timeAgo(dateStr) {
+      const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+      if (diff < 60) return 'just now';
+      if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+      if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+      return Math.floor(diff / 86400) + 'd ago';
+    }
+
+    function render() {
+      const notifs = getNotifications(user.email).sort((a, b) => new Date(b.date) - new Date(a.date));
+      document.getElementById('notifList').innerHTML = notifs.map(n => `
+        <div class="notif-item ${n.read ? '' : 'unread'}">
+          <div class="notif-icon">🔔</div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;">
+              <b>${n.title}</b>
+              <span class="help-text">${timeAgo(n.date)}</span>
+            </div>
+            <p style="color:var(--muted);font-size:14px;margin-top:4px;">${n.message}</p>
+          </div>
+        </div>`).join('') || '<p style="padding:20px;color:var(--muted);">No notifications yet.</p>';
+    }
+    document.getElementById('markAllBtn').addEventListener('click', function () {
+      markAllNotificationsRead(user.email);
+      render();
+    });
+    document.addEventListener('DOMContentLoaded', render);
+  </script>
+</body>
+</html>

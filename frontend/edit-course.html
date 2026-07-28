@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edit Course - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="manage" data-auth="admin">
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="container" style="max-width:750px;">
+    <div class="page-header">
+      <h1>Edit Course</h1>
+      <p>Update the course details below</p>
+    </div>
+
+    <div id="formWrap"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/validation.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const course = getCourseById(params.get('id'));
+    const wrap = document.getElementById('formWrap');
+
+    if (!course) {
+      wrap.innerHTML = '<p>Course not found. <a href="courses.html">Back to Manage Courses</a></p>';
+    } else {
+      wrap.innerHTML = `
+        <form id="courseForm" data-course-id="${course.id}" onsubmit="return validateCourseForm(event)" novalidate style="background:var(--card);padding:26px;border-radius:var(--radius);border:1px solid var(--border);">
+          <div class="form-group">
+            <label>Course Title</label>
+            <input type="text" id="title" name="title" value="${course.title}">
+            <div class="error-text" id="titleError"></div>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" id="category" name="category" value="${course.category}">
+            <div class="error-text" id="categoryError"></div>
+          </div>
+          <div class="form-group">
+            <label>Instructor Name</label>
+            <input type="text" id="instructor" name="instructor" value="${course.instructor}">
+            <div class="error-text" id="instructorError"></div>
+          </div>
+          <div class="form-group">
+            <label>Price (USD)</label>
+            <input type="number" id="price" name="price" min="0" value="${course.price}">
+            <div class="error-text" id="priceError"></div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="description" name="description">${course.description}</textarea>
+            <div class="error-text" id="descriptionError"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Course Modules</label>
+            <div id="modulesWrap">
+              ${course.modules.map((m, i) => `
+                <div style="display:flex;gap:8px;margin-bottom:8px;">
+                  <input type="text" ${i === 0 ? 'id="module1"' : ''} name="module${i + 1}" value="${m.title}">
+                  ${i > 0 ? `<button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">✕</button>` : ''}
+                </div>
+                ${i === 0 ? '<div class="error-text" id="module1Error"></div>' : ''}
+              `).join('')}
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="addModuleBtn">+ Add Module</button>
+          </div>
+
+          <div style="display:flex;gap:10px;">
+            <button type="submit" class="btn btn-primary" style="flex:1;">Save Changes</button>
+            <button type="button" class="btn btn-danger" id="deleteCourseBtn">Delete Course</button>
+          </div>
+        </form>
+      `;
+
+      let extraModuleCount = course.modules.length;
+      document.getElementById('addModuleBtn').addEventListener('click', function () {
+        extraModuleCount++;
+        const row = document.createElement('div');
+        row.style = 'display:flex;gap:8px;margin-bottom:8px;';
+        row.innerHTML = `<input type="text" name="module${extraModuleCount}" placeholder="Module ${extraModuleCount} title">
+          <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">✕</button>`;
+        document.getElementById('modulesWrap').appendChild(row);
+      });
+
+      document.getElementById('deleteCourseBtn').addEventListener('click', function () {
+        if (confirm('Delete this course permanently?')) {
+          deleteCourse(course.id);
+          window.location.href = 'courses.html';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
