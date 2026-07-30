@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Materials - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="mycourses" data-auth="student">
+  <nav class="navbar" id="navbar"></nav>
+  <div class="container" id="content"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const course = getCourseById(params.get('id'));
+    const moduleId = params.get('m');
+    const mod = course ? course.modules.find(m => m.id === moduleId) : null;
+    const content = document.getElementById('content');
+
+    if (!course || !mod) {
+      content.innerHTML = '<p>Materials not found.</p>';
+    } else {
+      content.innerHTML = `
+        <a href="module.html?id=${course.id}&m=${moduleId}" style="color:var(--primary);font-size:14px;">← Back to Module</a>
+        <h1 style="margin:12px 0 16px;">Study Materials — ${mod.title}</h1>
+        <div class="card" style="max-width:600px;">
+          <div class="card-body">
+            ${mod.materials.map(f => `
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);">
+                <span>📄 ${f}</span>
+                <a href="#" class="btn btn-secondary btn-sm" onclick="alert('In a live app this would download: ${f}');return false;">Download</a>
+              </div>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
