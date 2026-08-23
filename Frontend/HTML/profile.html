@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Profile - LMS Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="profile" data-auth="student">
+  <!-- Same nav shell as every other page - rendered by your EXISTING navigation.js, unmodified -->
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="container" style="max-width:700px;">
+    <div class="page-header">
+      <h1>My Profile</h1>
+      <p>View your account details and update your display name</p>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div style="display:flex;gap:16px;align-items:center;margin-bottom:20px;">
+          <div class="card-thumb" style="width:70px;height:70px;border-radius:50%;font-size:26px;flex-shrink:0;" id="avatarInitial"></div>
+          <div>
+            <h2 id="profileName" style="margin-bottom:4px;"></h2>
+            <p style="color:var(--muted);" id="profileEmail"></p>
+            <span class="tag" id="profileRole"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Display Name</label>
+          <input type="text" id="nameInput">
+        </div>
+        <button class="btn btn-primary" id="saveNameBtn">Save Changes</button>
+        <button class="btn btn-secondary" id="changePasswordBtn" style="margin-left:8px;">Change Password</button>
+      </div>
+    </div>
+
+    <div class="stats-row" style="margin-top:24px;">
+      <div class="stat-card"><div class="num" id="statPrimary">0</div><div class="label" id="statPrimaryLabel">Enrolled Courses</div></div>
+      <div class="stat-card"><div class="num" id="statSecondary">0</div><div class="label" id="statSecondaryLabel">Certificates Earned</div></div>
+    </div>
+  </div>
+
+  <!-- Your existing, UNMODIFIED files - gives this page the same nav + login guard as every other page -->
+  <script src="js/data.js"></script>
+  <script src="js/navigation.js"></script>
+
+  <!-- New, additive files for this task -->
+  <script src="js/app-state.js"></script>
+  <script src="js/ui-components.js"></script>
+
+  <script>
+    // ---- Wire the new modules together on this page ----
+
+    function paintProfile(state) {
+      const user = state.user;
+      if (!user) return; // navigation.js's guardPage() will redirect before this matters
+
+      document.getElementById('avatarInitial').textContent = user.name.charAt(0).toUpperCase();
+      document.getElementById('profileName').textContent = user.name;
+      document.getElementById('profileEmail').textContent = user.email;
+      document.getElementById('profileRole').textContent = user.role === 'admin' ? 'Admin' : 'Student';
+      document.getElementById('nameInput').value = user.name;
+
+      if (user.role === 'admin') {
+        document.getElementById('statPrimaryLabel').textContent = 'Courses Managed';
+        document.getElementById('statPrimary').textContent = getCourses().length;
+        document.getElementById('statSecondaryLabel').textContent = 'Total Enrollments';
+        document.getElementById('statSecondary').textContent = getData(KEYS.enrollments).length;
+      } else {
+        const myCourses = getMyCourses(user.email);
+        const percents = myCourses.map(function (c) { return getProgressPercent(user.email, c.id); });
+        document.getElementById('statPrimaryLabel').textContent = 'Enrolled Courses';
+        document.getElementById('statPrimary').textContent = myCourses.length;
+        document.getElementById('statSecondaryLabel').textContent = 'Certificates Earned';
+        document.getElementById('statSecondary').textContent = percents.filter(function (p) { return p === 100; }).length;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // navigation.js already called AppState... no - navigation.js doesn't know about AppState,
+      // it uses its own state internally via its (unmodified) code. So this page manages its
+      // OWN AppState instance for its own demo purposes, independent of navigation.js.
+      AppState.refresh();
+      paintProfile(AppState.getState());
+
+      // Reactive UI: whenever AppState changes, this page repaints itself automatically.
+      AppState.subscribe(paintProfile);
+
+      document.getElementById('saveNameBtn').addEventListener('click', function () {
+        const newName = document.getElementById('nameInput').value.trim();
+        if (newName.length < 2) {
+          ToastModule.show('Name must be at least 2 characters.', 'error');
+          return;
+        }
+        const current = AppState.getState().user;
+        // Update shared state - triggers paintProfile() again via subscribe()
+        AppState.setState({ user: Object.assign({}, current, { name: newName }) });
+        ToastModule.show('Profile updated!', 'success');
+      });
+
+      document.getElementById('changePasswordBtn').addEventListener('click', function () {
+        ModalModule.open('Change Password', `
+          <div class="form-group"><label>New Password</label><input type="password" id="newPasswordField"></div>
+          <button class="btn btn-primary btn-sm" id="confirmPasswordBtn">Update Password</button>
+        `);
+        document.getElementById('confirmPasswordBtn').addEventListener('click', function () {
+          const pw = document.getElementById('newPasswordField').value;
+          if (pw.length < 6) { ToastModule.show('Password must be at least 6 characters.', 'error'); return; }
+          const result = resetPasswordFor(AppState.getState().user.email, pw); // existing data.js function, untouched
+          ModalModule.close();
+          ToastModule.show(result.ok ? 'Password updated!' : result.message, result.ok ? 'success' : 'error');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
